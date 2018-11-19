@@ -3,6 +3,7 @@
 # C extensions
 *.so
 
+# VS Code
 .vscode 
 
 # Packages
@@ -36,3 +37,7 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# Venv
+venv
+venv/

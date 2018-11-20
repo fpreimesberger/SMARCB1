@@ -6,6 +6,10 @@
 # VS Code
 .vscode 
 
+# Tox files
+tox.ini
+.tox/
+
 # Packages
 *.egg
 *.egg-info

@@ -23,10 +23,19 @@ def getNormalUids():
     normal_uids = records['IdList']
     print(normal_uids)
 
-# for uid in pathogenic_uids:
-#     search = str(uid) + '[UID]'
-#     print(search)
-#     handle =  Entrez.esummary(db='dbvar', id=uid)
-#     print(Entrez.read(handle))
+# Get FASTA of sequence based on uid
+def getSequence(uid):
+    handle = Entrez.efetch(db="nucest", id=uid, rettype='fasta', retmode='xml')
+    records = Entrez.read(handle)
+    # print(records[0])
+    print((records[0]))
+    # for key in records[0]:
+    #     print(key)
+    # print(records[0].get('TSeq defline'))
+    # print(records[0]['TSeq sequence'])
+    
 
-# Save data sets into .txt files
+def main():
+    getSequence('3739221')
+
+main()

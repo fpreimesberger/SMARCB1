@@ -3,6 +3,7 @@ import matplotlib as plt
 import numpy as np
 import requests
 from bs4 import BeautifulSoup
+import tensorflow as tf
 
 from Bio import Medline
 from Bio import Entrez
@@ -12,9 +13,11 @@ Entrez.email = "fpreimesberger@gmail.com"
 def getPathogenicUids():
     handle = Entrez.esearch(db="dbvar", term='(SMARCB1[Gene Name]) pathogenic')
     records = Entrez.read(handle)
+    # print(records)
     # uids stores the unique IDs for each of the variants
     pathogenic_uids = records['IdList']
-    print(pathogenic_uids)
+    # print(str(pathogenic_uids))
+    return(pathogenic_uids)
 
 # Scraping PubMed DBVar for normal variants of SMARCB1
 def getNormalUids():
@@ -28,14 +31,25 @@ def getSequence(uid):
     handle = Entrez.efetch(db="nucest", id=uid, rettype='fasta', retmode='xml')
     records = Entrez.read(handle)
     # print(records[0])
-    print((records[0]))
-    # for key in records[0]:
-    #     print(key)
+    # return((records))
+    use = ''
+    counter = 0
+    for key in records[0]:
+        if counter == 7:
+            use = key
+        counter += 1
+    return(records[0].get(use))
     # print(records[0].get('TSeq defline'))
     # print(records[0]['TSeq sequence'])
     
 
 def main():
-    getSequence('3739221')
+    pathogens = (getPathogenicUids())
+    # getSequence(pathogens)
+    path_output = open("path_output.txt", "w")
+    path_output.write('pls')
+    for path in pathogens:
+        path_output.write(str(getSequence(path)) + '\n \n')
+    path_output.close()
 
 main()

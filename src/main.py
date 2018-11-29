@@ -30,7 +30,7 @@ def getNormalUids():
 def getSequence(uid):
     handle = Entrez.efetch(db="nucest", id=uid, rettype='fasta', retmode='xml')
     records = Entrez.read(handle)
-    # print(records[0])
+    print(records[0])
     # return((records))
     use = ''
     counter = 0
